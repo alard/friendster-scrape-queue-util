@@ -1,0 +1,53 @@
+These are some helper scripts to run a number of Friendster download scripts
+from a single queue of ids.
+
+You need Ruby, Redis and the bff.sh script.
+
+
+= Installing =
+
+1. Install and start Redis:  http://redis.io/
+
+2. Get Ruby and RubyGems  http://www.ruby-lang.org/
+
+3. Install the redis gem: 
+   $  gem install redis
+
+4. Copy these .rb scripts to the same directory as bff.sh
+   and your username.txt and password.txt
+
+
+= Queueing =
+
+To add a range of ids to the queue, run
+
+$ ruby queue.rb FROM TO
+
+e.g.
+
+$ ruby queue.rb 1000 2000
+
+
+= Running a worker =
+
+Run a worker (all in the same directory)
+
+$ ruby dld.rb
+
+This will connect to the Redis queue and wait for ids. You can start multiple
+workers in the same directory. Each worker will use its own cookie jar.
+
+To stop the workers, create a file called STOP in the directory:
+
+$ touch STOP
+
+The workers will complete their current profiles and exit.
+
+
+= Statistics! =
+
+To view some statistics, run
+
+$ ruby stats.rb
+
+
